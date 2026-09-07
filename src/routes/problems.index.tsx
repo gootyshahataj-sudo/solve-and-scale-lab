@@ -5,7 +5,7 @@ import { ProblemCard } from "@/components/problem-card";
 import { EmptyState, PageShell, SearchField } from "@/components/site";
 
 export const Route = createFileRoute("/problems/")({
-  validateSearch: (search: Record<string, unknown>) => ({ q: String(search.q ?? "") }),
+  validateSearch: (search: Record<string, unknown>) => ({ q: String(search["q"] ?? "") }),
   head: () => ({
     meta: [
       { title: "Explore Problems — SolveSphere" },

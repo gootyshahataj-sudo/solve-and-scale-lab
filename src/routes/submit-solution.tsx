@@ -18,7 +18,7 @@ export const Route = createFileRoute("/submit-solution")({
 
 const EMPTY = {
   name: "",
-  problemId: PROBLEMS[0].id,
+  problemId: PROBLEMS[0]!.id,
   description: "",
   howItWorks: "",
   targetUsers: "",
@@ -33,16 +33,16 @@ const EMPTY = {
 function SubmitSolution() {
   const { update } = useAppState();
   const [form, setForm] = useState(EMPTY);
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Record<string, string | undefined>>({});
   const [done, setDone] = useState(false);
 
   const set = (k: keyof typeof EMPTY, v: string) => setForm((f) => ({ ...f, [k]: v }));
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    const next: Record<string, string> = {};
-    if (!form.name.trim()) next.name = "Name the solution.";
-    if (form.description.trim().length < 20) next.description = "Add at least 20 characters.";
+    const next: Record<string, string | undefined> = {};
+    if (!form.name.trim()) next["name"] = "Name the solution.";
+    if (form.description.trim().length < 20) next["description"] = "Add at least 20 characters.";
     setErrors(next);
     if (Object.keys(next).length > 0) return;
     update((prev) => ({
@@ -65,7 +65,7 @@ function SubmitSolution() {
         </div>
       )}
       <form onSubmit={submit} className="card-surface grid max-w-3xl gap-4 p-6">
-        <Field label="Solution name" error={errors.name}>
+        <Field label="Solution name" error={errors["name"]}>
           <input value={form.name} onChange={(e) => set("name", e.target.value)} className={inputClass} />
         </Field>
         <div className="grid gap-4 sm:grid-cols-2">
@@ -85,7 +85,7 @@ function SubmitSolution() {
             </select>
           </Field>
         </div>
-        <Field label="Description" error={errors.description}>
+        <Field label="Description" error={errors["description"]}>
           <textarea
             rows={3}
             value={form.description}

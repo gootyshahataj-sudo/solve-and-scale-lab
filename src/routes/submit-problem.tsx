@@ -20,7 +20,7 @@ const EMPTY = {
   title: "",
   description: "",
   category: CATEGORIES[0] as string,
-  industry: INDUSTRIES[0],
+  industry: INDUSTRIES[0] ?? "",
   location: "",
   whoExperiences: "",
   frequency: "",
@@ -36,17 +36,17 @@ const EMPTY = {
 function SubmitProblem() {
   const { update } = useAppState();
   const [form, setForm] = useState(EMPTY);
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Record<string, string | undefined>>({});
   const [done, setDone] = useState(false);
 
   const set = (k: keyof typeof EMPTY, v: string | boolean) => setForm((f) => ({ ...f, [k]: v }));
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    const next: Record<string, string> = {};
-    if (form.title.trim().length < 8) next.title = "Give the problem a clear title (8+ characters).";
-    if (form.description.trim().length < 30) next.description = "Describe it in at least 30 characters.";
-    if (!form.whoExperiences.trim()) next.whoExperiences = "Tell us who experiences this.";
+    const next: Record<string, string | undefined> = {};
+    if (form.title.trim().length < 8) next["title"] = "Give the problem a clear title (8+ characters).";
+    if (form.description.trim().length < 30) next["description"] = "Describe it in at least 30 characters.";
+    if (!form.whoExperiences.trim()) next["whoExperiences"] = "Tell us who experiences this.";
     setErrors(next);
     if (Object.keys(next).length > 0) return;
 
@@ -70,10 +70,10 @@ function SubmitProblem() {
         </div>
       )}
       <form onSubmit={submit} className="card-surface grid max-w-3xl gap-4 p-6">
-        <Field label="Problem title" error={errors.title}>
+        <Field label="Problem title" error={errors["title"]}>
           <input value={form.title} onChange={(e) => set("title", e.target.value)} className={inputClass} />
         </Field>
-        <Field label="Description" error={errors.description}>
+        <Field label="Description" error={errors["description"]}>
           <textarea
             rows={4}
             value={form.description}
@@ -106,7 +106,7 @@ function SubmitProblem() {
               ))}
             </select>
           </Field>
-          <Field label="Who experiences it" error={errors.whoExperiences}>
+          <Field label="Who experiences it" error={errors["whoExperiences"]}>
             <input
               value={form.whoExperiences}
               onChange={(e) => set("whoExperiences", e.target.value)}

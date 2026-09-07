@@ -25,7 +25,7 @@ function Community() {
   const seeded = PROBLEMS.flatMap((p) => p.ideas.map((i) => ({ ...i, problem: p })));
   const mine = state.ideas.map((i) => ({
     ...i,
-    problem: PROBLEMS.find((p) => p.id === i.problemId) ?? PROBLEMS[0],
+    problem: PROBLEMS.find((p) => p.id === i.problemId) ?? PROBLEMS[0]!,
   }));
   const all = [...mine, ...seeded].sort((a, b) => score(b.id, b.upvotes) - score(a.id, a.upvotes));
 
