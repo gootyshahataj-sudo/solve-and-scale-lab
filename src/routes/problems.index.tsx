@@ -4,7 +4,7 @@ import { CATEGORIES, INDUSTRIES, PROBLEMS, SEVERITIES, STATUSES } from "@/lib/da
 import { ProblemCard } from "@/components/problem-card";
 import { EmptyState, PageShell, SearchField } from "@/components/site";
 
-export const Route = createFileRoute("/problems")({
+export const Route = createFileRoute("/problems/")({
   validateSearch: (search: Record<string, unknown>) => ({ q: String(search.q ?? "") }),
   head: () => ({
     meta: [

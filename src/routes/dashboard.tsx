@@ -12,7 +12,7 @@ export const Route = createFileRoute("/dashboard")({
       { property: "og:description", content: "Track what you've saved, submitted and proposed on SolveSphere." },
     ],
   }),
-  component: Dashboard;
+  component: Dashboard,
 });
 
 function Dashboard() {
