@@ -10,33 +10,167 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as CheckIdeaRouteImport } from './routes/check-idea'
+import { Route as CommunityRouteImport } from './routes/community'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as InvestorsRouteImport } from './routes/investors'
+import { Route as OpportunitiesRouteImport } from './routes/opportunities'
+import { Route as SubmitProblemRouteImport } from './routes/submit-problem'
+import { Route as SubmitSolutionRouteImport } from './routes/submit-solution'
+import { Route as ProblemsIndexRouteImport } from './routes/problems.index'
+import { Route as ProblemsProblemIdRouteImport } from './routes/problems.$problemId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CheckIdeaRoute = CheckIdeaRouteImport.update({
+  id: '/check-idea',
+  path: '/check-idea',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunityRoute = CommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InvestorsRoute = InvestorsRouteImport.update({
+  id: '/investors',
+  path: '/investors',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OpportunitiesRoute = OpportunitiesRouteImport.update({
+  id: '/opportunities',
+  path: '/opportunities',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SubmitProblemRoute = SubmitProblemRouteImport.update({
+  id: '/submit-problem',
+  path: '/submit-problem',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SubmitSolutionRoute = SubmitSolutionRouteImport.update({
+  id: '/submit-solution',
+  path: '/submit-solution',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProblemsIndexRoute = ProblemsIndexRouteImport.update({
+  id: '/problems/',
+  path: '/problems/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProblemsProblemIdRoute = ProblemsProblemIdRouteImport.update({
+  id: '/problems/$problemId',
+  path: '/problems/$problemId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/check-idea': typeof CheckIdeaRoute
+  '/community': typeof CommunityRoute
+  '/dashboard': typeof DashboardRoute
+  '/investors': typeof InvestorsRoute
+  '/opportunities': typeof OpportunitiesRoute
+  '/submit-problem': typeof SubmitProblemRoute
+  '/submit-solution': typeof SubmitSolutionRoute
+  '/problems/$problemId': typeof ProblemsProblemIdRoute
+  '/problems/': typeof ProblemsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/check-idea': typeof CheckIdeaRoute
+  '/community': typeof CommunityRoute
+  '/dashboard': typeof DashboardRoute
+  '/investors': typeof InvestorsRoute
+  '/opportunities': typeof OpportunitiesRoute
+  '/submit-problem': typeof SubmitProblemRoute
+  '/submit-solution': typeof SubmitSolutionRoute
+  '/problems/$problemId': typeof ProblemsProblemIdRoute
+  '/problems': typeof ProblemsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/check-idea': typeof CheckIdeaRoute
+  '/community': typeof CommunityRoute
+  '/dashboard': typeof DashboardRoute
+  '/investors': typeof InvestorsRoute
+  '/opportunities': typeof OpportunitiesRoute
+  '/submit-problem': typeof SubmitProblemRoute
+  '/submit-solution': typeof SubmitSolutionRoute
+  '/problems/$problemId': typeof ProblemsProblemIdRoute
+  '/problems/': typeof ProblemsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/check-idea'
+    | '/community'
+    | '/dashboard'
+    | '/investors'
+    | '/opportunities'
+    | '/submit-problem'
+    | '/submit-solution'
+    | '/problems/$problemId'
+    | '/problems/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/admin'
+    | '/check-idea'
+    | '/community'
+    | '/dashboard'
+    | '/investors'
+    | '/opportunities'
+    | '/submit-problem'
+    | '/submit-solution'
+    | '/problems/$problemId'
+    | '/problems'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/check-idea'
+    | '/community'
+    | '/dashboard'
+    | '/investors'
+    | '/opportunities'
+    | '/submit-problem'
+    | '/submit-solution'
+    | '/problems/$problemId'
+    | '/problems/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
+  CheckIdeaRoute: typeof CheckIdeaRoute
+  CommunityRoute: typeof CommunityRoute
+  DashboardRoute: typeof DashboardRoute
+  InvestorsRoute: typeof InvestorsRoute
+  OpportunitiesRoute: typeof OpportunitiesRoute
+  SubmitProblemRoute: typeof SubmitProblemRoute
+  SubmitSolutionRoute: typeof SubmitSolutionRoute
+  ProblemsProblemIdRoute: typeof ProblemsProblemIdRoute
+  ProblemsIndexRoute: typeof ProblemsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +182,91 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/check-idea': {
+      id: '/check-idea'
+      path: '/check-idea'
+      fullPath: '/check-idea'
+      preLoaderRoute: typeof CheckIdeaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/community': {
+      id: '/community'
+      path: '/community'
+      fullPath: '/community'
+      preLoaderRoute: typeof CommunityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/investors': {
+      id: '/investors'
+      path: '/investors'
+      fullPath: '/investors'
+      preLoaderRoute: typeof InvestorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/opportunities': {
+      id: '/opportunities'
+      path: '/opportunities'
+      fullPath: '/opportunities'
+      preLoaderRoute: typeof OpportunitiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/submit-problem': {
+      id: '/submit-problem'
+      path: '/submit-problem'
+      fullPath: '/submit-problem'
+      preLoaderRoute: typeof SubmitProblemRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/submit-solution': {
+      id: '/submit-solution'
+      path: '/submit-solution'
+      fullPath: '/submit-solution'
+      preLoaderRoute: typeof SubmitSolutionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/problems/': {
+      id: '/problems/'
+      path: '/problems'
+      fullPath: '/problems/'
+      preLoaderRoute: typeof ProblemsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/problems/$problemId': {
+      id: '/problems/$problemId'
+      path: '/problems/$problemId'
+      fullPath: '/problems/$problemId'
+      preLoaderRoute: typeof ProblemsProblemIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
+  CheckIdeaRoute: CheckIdeaRoute,
+  CommunityRoute: CommunityRoute,
+  DashboardRoute: DashboardRoute,
+  InvestorsRoute: InvestorsRoute,
+  OpportunitiesRoute: OpportunitiesRoute,
+  SubmitProblemRoute: SubmitProblemRoute,
+  SubmitSolutionRoute: SubmitSolutionRoute,
+  ProblemsProblemIdRoute: ProblemsProblemIdRoute,
+  ProblemsIndexRoute: ProblemsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

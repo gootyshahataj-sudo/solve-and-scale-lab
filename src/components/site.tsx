@@ -90,7 +90,7 @@ export function Footer() {
           <span>© 2026</span>
         </div>
         <div className="flex flex-wrap justify-center gap-6">
-          <Link to="/problems">Explore</Link>
+          <Link to="/problems" search={{ q: "" }}>Explore</Link>
           <Link to="/community">Community</Link>
           <Link to="/investors">Investors</Link>
           <Link to="/submit-problem">Submit a problem</Link>
@@ -225,8 +225,8 @@ export function Field({
   hint,
 }: {
   label: string;
-  error?: string;
-  hint?: string;
+  error?: string | undefined;
+  hint?: string | undefined;
   children: ReactNode;
 }) {
   return (
