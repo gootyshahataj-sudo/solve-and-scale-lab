@@ -10,26 +10,21 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CheckIdeaRouteImport } from './routes/check-idea'
 import { Route as CommunityRouteImport } from './routes/community'
-import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as InvestorsRouteImport } from './routes/investors'
 import { Route as OpportunitiesRouteImport } from './routes/opportunities'
-import { Route as SubmitProblemRouteImport } from './routes/submit-problem'
-import { Route as SubmitSolutionRouteImport } from './routes/submit-solution'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedSubmitProblemRouteImport } from './routes/_authenticated/submit-problem'
+import { Route as AuthenticatedSubmitSolutionRouteImport } from './routes/_authenticated/submit-solution'
 import { Route as ProblemsIndexRouteImport } from './routes/problems.index'
 import { Route as ProblemsProblemIdRouteImport } from './routes/problems.$problemId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminRoute = AdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -47,11 +42,6 @@ const CommunityRoute = CommunityRouteImport.update({
   path: '/community',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DashboardRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const InvestorsRoute = InvestorsRouteImport.update({
   id: '/investors',
   path: '/investors',
@@ -62,16 +52,28 @@ const OpportunitiesRoute = OpportunitiesRouteImport.update({
   path: '/opportunities',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SubmitProblemRoute = SubmitProblemRouteImport.update({
-  id: '/submit-problem',
-  path: '/submit-problem',
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/_authenticated/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SubmitSolutionRoute = SubmitSolutionRouteImport.update({
-  id: '/submit-solution',
-  path: '/submit-solution',
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/_authenticated/dashboard',
+  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedSubmitProblemRoute =
+  AuthenticatedSubmitProblemRouteImport.update({
+    id: '/_authenticated/submit-problem',
+    path: '/submit-problem',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AuthenticatedSubmitSolutionRoute =
+  AuthenticatedSubmitSolutionRouteImport.update({
+    id: '/_authenticated/submit-solution',
+    path: '/submit-solution',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ProblemsIndexRoute = ProblemsIndexRouteImport.update({
   id: '/problems/',
   path: '/problems/',
@@ -85,44 +87,44 @@ const ProblemsProblemIdRoute = ProblemsProblemIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
   '/check-idea': typeof CheckIdeaRoute
   '/community': typeof CommunityRoute
-  '/dashboard': typeof DashboardRoute
   '/investors': typeof InvestorsRoute
   '/opportunities': typeof OpportunitiesRoute
-  '/submit-problem': typeof SubmitProblemRoute
-  '/submit-solution': typeof SubmitSolutionRoute
+  '/admin': typeof AuthenticatedAdminRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/submit-problem': typeof AuthenticatedSubmitProblemRoute
+  '/submit-solution': typeof AuthenticatedSubmitSolutionRoute
   '/problems/$problemId': typeof ProblemsProblemIdRoute
   '/problems/': typeof ProblemsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
   '/check-idea': typeof CheckIdeaRoute
   '/community': typeof CommunityRoute
-  '/dashboard': typeof DashboardRoute
   '/investors': typeof InvestorsRoute
   '/opportunities': typeof OpportunitiesRoute
-  '/submit-problem': typeof SubmitProblemRoute
-  '/submit-solution': typeof SubmitSolutionRoute
+  '/admin': typeof AuthenticatedAdminRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/submit-problem': typeof AuthenticatedSubmitProblemRoute
+  '/submit-solution': typeof AuthenticatedSubmitSolutionRoute
   '/problems/$problemId': typeof ProblemsProblemIdRoute
   '/problems': typeof ProblemsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
   '/check-idea': typeof CheckIdeaRoute
   '/community': typeof CommunityRoute
-  '/dashboard': typeof DashboardRoute
   '/investors': typeof InvestorsRoute
   '/opportunities': typeof OpportunitiesRoute
-  '/submit-problem': typeof SubmitProblemRoute
-  '/submit-solution': typeof SubmitSolutionRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/submit-problem': typeof AuthenticatedSubmitProblemRoute
+  '/_authenticated/submit-solution': typeof AuthenticatedSubmitSolutionRoute
   '/problems/$problemId': typeof ProblemsProblemIdRoute
   '/problems/': typeof ProblemsIndexRoute
 }
@@ -130,13 +132,13 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/admin'
     | '/auth'
     | '/check-idea'
     | '/community'
-    | '/dashboard'
     | '/investors'
     | '/opportunities'
+    | '/admin'
+    | '/dashboard'
     | '/submit-problem'
     | '/submit-solution'
     | '/problems/$problemId'
@@ -144,13 +146,13 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/admin'
     | '/auth'
     | '/check-idea'
     | '/community'
-    | '/dashboard'
     | '/investors'
     | '/opportunities'
+    | '/admin'
+    | '/dashboard'
     | '/submit-problem'
     | '/submit-solution'
     | '/problems/$problemId'
@@ -158,30 +160,30 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/admin'
     | '/auth'
     | '/check-idea'
     | '/community'
-    | '/dashboard'
     | '/investors'
     | '/opportunities'
-    | '/submit-problem'
-    | '/submit-solution'
+    | '/_authenticated/admin'
+    | '/_authenticated/dashboard'
+    | '/_authenticated/submit-problem'
+    | '/_authenticated/submit-solution'
     | '/problems/$problemId'
     | '/problems/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AdminRoute: typeof AdminRoute
   AuthRoute: typeof AuthRoute
   CheckIdeaRoute: typeof CheckIdeaRoute
   CommunityRoute: typeof CommunityRoute
-  DashboardRoute: typeof DashboardRoute
   InvestorsRoute: typeof InvestorsRoute
   OpportunitiesRoute: typeof OpportunitiesRoute
-  SubmitProblemRoute: typeof SubmitProblemRoute
-  SubmitSolutionRoute: typeof SubmitSolutionRoute
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedSubmitProblemRoute: typeof AuthenticatedSubmitProblemRoute
+  AuthenticatedSubmitSolutionRoute: typeof AuthenticatedSubmitSolutionRoute
   ProblemsProblemIdRoute: typeof ProblemsProblemIdRoute
   ProblemsIndexRoute: typeof ProblemsIndexRoute
 }
@@ -193,13 +195,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin': {
-      id: '/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -223,13 +218,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CommunityRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/investors': {
       id: '/investors'
       path: '/investors'
@@ -244,18 +232,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OpportunitiesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/submit-problem': {
-      id: '/submit-problem'
-      path: '/submit-problem'
-      fullPath: '/submit-problem'
-      preLoaderRoute: typeof SubmitProblemRouteImport
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/submit-solution': {
-      id: '/submit-solution'
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/submit-problem': {
+      id: '/_authenticated/submit-problem'
+      path: '/submit-problem'
+      fullPath: '/submit-problem'
+      preLoaderRoute: typeof AuthenticatedSubmitProblemRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/submit-solution': {
+      id: '/_authenticated/submit-solution'
       path: '/submit-solution'
       fullPath: '/submit-solution'
-      preLoaderRoute: typeof SubmitSolutionRouteImport
+      preLoaderRoute: typeof AuthenticatedSubmitSolutionRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/problems/': {
@@ -277,15 +279,15 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdminRoute: AdminRoute,
   AuthRoute: AuthRoute,
   CheckIdeaRoute: CheckIdeaRoute,
   CommunityRoute: CommunityRoute,
-  DashboardRoute: DashboardRoute,
   InvestorsRoute: InvestorsRoute,
   OpportunitiesRoute: OpportunitiesRoute,
-  SubmitProblemRoute: SubmitProblemRoute,
-  SubmitSolutionRoute: SubmitSolutionRoute,
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedSubmitProblemRoute: AuthenticatedSubmitProblemRoute,
+  AuthenticatedSubmitSolutionRoute: AuthenticatedSubmitSolutionRoute,
   ProblemsProblemIdRoute: ProblemsProblemIdRoute,
   ProblemsIndexRoute: ProblemsIndexRoute,
 }
