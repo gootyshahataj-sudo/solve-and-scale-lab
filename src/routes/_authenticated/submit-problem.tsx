@@ -4,7 +4,7 @@ import { CATEGORIES, INDUSTRIES, SEVERITIES } from "@/lib/data";
 import { Field, PageShell, inputClass } from "@/components/site";
 import { today, uid, useAppState } from "@/lib/store";
 
-export const Route = createFileRoute("/submit-problem")({
+export const Route = createFileRoute("/_authenticated/submit-problem")({
   head: () => ({
     meta: [
       { title: "Submit a Problem — SolveSphere" },

@@ -4,7 +4,7 @@ import { PROBLEMS } from "@/lib/data";
 import { Field, PageShell, inputClass } from "@/components/site";
 import { today, uid, useAppState } from "@/lib/store";
 
-export const Route = createFileRoute("/submit-solution")({
+export const Route = createFileRoute("/_authenticated/submit-solution")({
   head: () => ({
     meta: [
       { title: "Submit a Solution — SolveSphere" },

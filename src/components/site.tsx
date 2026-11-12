@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { Menu, X, Search } from "lucide-react";
 import { useState, type ReactNode } from "react";
+import { Button } from "@/components/ui/button";
+import { useAuth } from "@/components/auth-provider";
 
 const NAV = [
   { to: "/problems", label: "Explore" },
@@ -12,6 +14,19 @@ const NAV = [
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const { user, profileName, signOut } = useAuth();
+  const [signOutError, setSignOutError] = useState("");
+
+  const handleSignOut = async () => {
+    setSignOutError("");
+    try {
+      await signOut();
+      setOpen(false);
+    } catch {
+      setSignOutError("We couldn't sign you out. Please try again.");
+    }
+  };
+
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur-sm">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
@@ -38,31 +53,37 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Link
-            to="/admin"
-            className="hidden px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground sm:block"
-          >
-            Admin
-          </Link>
-          <Link
-            to="/dashboard"
-            className="rounded-full bg-foreground px-4 py-2 text-sm font-semibold text-background transition-colors hover:bg-primary"
-          >
-            Dashboard
-          </Link>
-          <button
+          {user ? (
+            <>
+              <Button variant="ghost" size="sm" asChild className="hidden max-w-36 truncate sm:inline-flex">
+                <Link to="/account" title={profileName || user.email || "Account"}>
+                  {profileName || "Account"}
+                </Link>
+              </Button>
+              <Button variant="outline" size="sm" onClick={handleSignOut} className="hidden md:inline-flex">
+                Sign out
+              </Button>
+            </>
+          ) : (
+            <Button size="sm" asChild>
+              <Link to="/auth">Sign in</Link>
+            </Button>
+          )}
+          <Button
+            variant="outline"
+            size="icon"
             aria-label="Toggle menu"
             onClick={() => setOpen((v) => !v)}
-            className="grid size-9 place-items-center rounded-full border border-border md:hidden"
+            className="rounded-full md:hidden"
           >
             {open ? <X className="size-4" /> : <Menu className="size-4" />}
-          </button>
+          </Button>
         </div>
       </div>
 
       {open && (
         <nav className="border-t border-border bg-background px-6 py-3 md:hidden">
-          {[...NAV, { to: "/admin", label: "Admin" } as const].map((n) => (
+          {NAV.map((n) => (
             <Link
               key={n.to}
               to={n.to}
@@ -73,6 +94,24 @@ export function Header() {
               {n.label}
             </Link>
           ))}
+          {user ? (
+            <>
+              <Link to="/dashboard" onClick={() => setOpen(false)} className="block py-2 text-sm font-medium">
+                Dashboard
+              </Link>
+              <Link to="/account" onClick={() => setOpen(false)} className="block py-2 text-sm font-medium">
+                Account · {profileName || user.email}
+              </Link>
+              <Button variant="ghost" size="sm" onClick={handleSignOut} className="mt-1">
+                Sign out
+              </Button>
+            </>
+          ) : (
+            <Link to="/auth" onClick={() => setOpen(false)} className="block py-2 text-sm font-medium">
+              Sign in
+            </Link>
+          )}
+          {signOutError && <p role="alert" className="py-2 text-sm text-destructive">{signOutError}</p>}
         </nav>
       )}
     </header>

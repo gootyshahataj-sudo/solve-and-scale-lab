@@ -3,7 +3,7 @@ import { CURRENT_USER, PROBLEMS } from "@/lib/data";
 import { EmptyState, PageShell, Pill } from "@/components/site";
 import { useAppState } from "@/lib/store";
 
-export const Route = createFileRoute("/dashboard")({
+export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
     meta: [
       { title: "Your Dashboard — SolveSphere" },

@@ -16,22 +16,31 @@ export type Database = {
     Tables: {
       profiles: {
         Row: {
+          avatar_url: string | null
+          bio: string
           created_at: string
           full_name: string
           id: string
           updated_at: string
+          username: string | null
         }
         Insert: {
+          avatar_url?: string | null
+          bio?: string
           created_at?: string
           full_name?: string
           id: string
           updated_at?: string
+          username?: string | null
         }
         Update: {
+          avatar_url?: string | null
+          bio?: string
           created_at?: string
           full_name?: string
           id?: string
           updated_at?: string
+          username?: string | null
         }
         Relationships: []
       }
@@ -52,6 +61,24 @@ export type Database = {
           created_at?: string
           id?: string
           role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_workspaces: {
+        Row: {
+          payload: Json
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          payload?: Json
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          payload?: Json
+          updated_at?: string
           user_id?: string
         }
         Relationships: []

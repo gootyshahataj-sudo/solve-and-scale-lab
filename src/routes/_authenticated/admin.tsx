@@ -3,7 +3,7 @@ import { ADMIN_REPORTS, ADMIN_USERS, PLATFORM_STATS } from "@/lib/data";
 import { EmptyState, PageShell, Pill } from "@/components/site";
 import { useAppState } from "@/lib/store";
 
-export const Route = createFileRoute("/admin")({
+export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
     meta: [
       { title: "Admin — SolveSphere" },
