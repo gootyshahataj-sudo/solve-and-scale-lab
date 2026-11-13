@@ -8,3 +8,4 @@
 - [ ] Build database-backed Ideas and Solutions discovery/details with search, categories, sorting, pagination, submissions, approval visibility, and owner permissions.
 - [ ] Add the requested SolveSphere AI assistant through Lovable AI after discovery/details work.
 - [ ] Persist problem/solution submissions, ideas, comments, and user votes/bookmarks in Lovable Cloud, replacing localStorage-only writes for shared content.
+- [ ] Add protected admin moderation pages for approvals, category management, and inappropriate-content reports, gated by a database role and an owner-approved administrator email.
