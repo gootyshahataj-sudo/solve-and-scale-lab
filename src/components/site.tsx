@@ -66,7 +66,7 @@ export function Header() {
             </>
           ) : (
             <Button size="sm" asChild>
-              <Link to="/auth">Sign in</Link>
+              <Link to="/auth" search={{ redirect: "/" }}>Sign in</Link>
             </Button>
           )}
           <Button
@@ -107,7 +107,7 @@ export function Header() {
               </Button>
             </>
           ) : (
-            <Link to="/auth" onClick={() => setOpen(false)} className="block py-2 text-sm font-medium">
+            <Link to="/auth" search={{ redirect: "/" }} onClick={() => setOpen(false)} className="block py-2 text-sm font-medium">
               Sign in
             </Link>
           )}
