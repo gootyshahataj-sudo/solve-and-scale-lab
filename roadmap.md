@@ -4,3 +4,4 @@
 - [ ] Protect dashboard, submissions, and admin access; show and manage the signed-in user's profile.
 - [ ] Review the uploaded brief and address its database-backed ideas, solutions, interactions, discovery, and activity requirements without removing existing features.
 - [ ] Verify auth routes, protected redirects, profile permissions, application build, and package update.
+- [ ] Incorporate the new multi-role brief: secure role grants, investor/innovator/admin experiences, persisted ideas and interactions, private voting, and moderation workflows.

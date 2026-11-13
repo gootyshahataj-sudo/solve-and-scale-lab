@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CheckIdeaRouteImport } from './routes/check-idea'
 import { Route as CommunityRouteImport } from './routes/community'
@@ -25,6 +26,10 @@ import { Route as ProblemsProblemIdRouteImport } from './routes/problems.$proble
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -53,26 +58,26 @@ const OpportunitiesRoute = OpportunitiesRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
-  id: '/_authenticated/admin',
+  id: '/admin',
   path: '/admin',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
-  id: '/_authenticated/dashboard',
+  id: '/dashboard',
   path: '/dashboard',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedSubmitProblemRoute =
   AuthenticatedSubmitProblemRouteImport.update({
-    id: '/_authenticated/submit-problem',
+    id: '/submit-problem',
     path: '/submit-problem',
-    getParentRoute: () => rootRouteImport,
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedSubmitSolutionRoute =
   AuthenticatedSubmitSolutionRouteImport.update({
-    id: '/_authenticated/submit-solution',
+    id: '/submit-solution',
     path: '/submit-solution',
-    getParentRoute: () => rootRouteImport,
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const ProblemsIndexRoute = ProblemsIndexRouteImport.update({
   id: '/problems/',
@@ -116,6 +121,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/check-idea': typeof CheckIdeaRoute
   '/community': typeof CommunityRoute
@@ -160,6 +166,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/auth'
     | '/check-idea'
     | '/community'
@@ -175,15 +182,12 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   CheckIdeaRoute: typeof CheckIdeaRoute
   CommunityRoute: typeof CommunityRoute
   InvestorsRoute: typeof InvestorsRoute
   OpportunitiesRoute: typeof OpportunitiesRoute
-  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
-  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
-  AuthenticatedSubmitProblemRoute: typeof AuthenticatedSubmitProblemRoute
-  AuthenticatedSubmitSolutionRoute: typeof AuthenticatedSubmitSolutionRoute
   ProblemsProblemIdRoute: typeof ProblemsProblemIdRoute
   ProblemsIndexRoute: typeof ProblemsIndexRoute
 }
@@ -195,6 +199,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -237,28 +248,28 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin'
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/submit-problem': {
       id: '/_authenticated/submit-problem'
       path: '/submit-problem'
       fullPath: '/submit-problem'
       preLoaderRoute: typeof AuthenticatedSubmitProblemRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/submit-solution': {
       id: '/_authenticated/submit-solution'
       path: '/submit-solution'
       fullPath: '/submit-solution'
       preLoaderRoute: typeof AuthenticatedSubmitSolutionRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/problems/': {
       id: '/problems/'
@@ -277,17 +288,31 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedSubmitProblemRoute: typeof AuthenticatedSubmitProblemRoute
+  AuthenticatedSubmitSolutionRoute: typeof AuthenticatedSubmitSolutionRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedSubmitProblemRoute: AuthenticatedSubmitProblemRoute,
+  AuthenticatedSubmitSolutionRoute: AuthenticatedSubmitSolutionRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   CheckIdeaRoute: CheckIdeaRoute,
   CommunityRoute: CommunityRoute,
   InvestorsRoute: InvestorsRoute,
   OpportunitiesRoute: OpportunitiesRoute,
-  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
-  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
-  AuthenticatedSubmitProblemRoute: AuthenticatedSubmitProblemRoute,
-  AuthenticatedSubmitSolutionRoute: AuthenticatedSubmitSolutionRoute,
   ProblemsProblemIdRoute: ProblemsProblemIdRoute,
   ProblemsIndexRoute: ProblemsIndexRoute,
 }
