@@ -29,6 +29,13 @@
       "when": 1794549032957,
       "tag": "0003_add_investor_role",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1794549084700,
+      "tag": "0004_create_community_content",
+      "breakpoints": true
     }
   ]
 }

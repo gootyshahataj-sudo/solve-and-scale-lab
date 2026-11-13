@@ -14,6 +14,145 @@ export type Database = {
   }
   public: {
     Tables: {
+      categories: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          name: string
+          slug: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          id?: string
+          name: string
+          slug: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          name?: string
+          slug?: string
+        }
+        Relationships: []
+      }
+      ideas: {
+        Row: {
+          body: string
+          category: string
+          created_at: string
+          id: string
+          owner_id: string
+          problem_id: string
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          body: string
+          category?: string
+          created_at?: string
+          id?: string
+          owner_id: string
+          problem_id?: string
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          body?: string
+          category?: string
+          created_at?: string
+          id?: string
+          owner_id?: string
+          problem_id?: string
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ideas_owner_id_fkey"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      problems: {
+        Row: {
+          affected: string
+          anonymous: boolean
+          category: string
+          created_at: string
+          current_method: string
+          description: string
+          frequency: string
+          id: string
+          industry: string
+          location: string
+          owner_id: string
+          severity: string
+          source: string
+          status: string
+          title: string
+          updated_at: string
+          who_experiences: string
+          why_insufficient: string
+        }
+        Insert: {
+          affected?: string
+          anonymous?: boolean
+          category?: string
+          created_at?: string
+          current_method?: string
+          description: string
+          frequency?: string
+          id: string
+          industry?: string
+          location?: string
+          owner_id: string
+          severity?: string
+          source?: string
+          status?: string
+          title: string
+          updated_at?: string
+          who_experiences?: string
+          why_insufficient?: string
+        }
+        Update: {
+          affected?: string
+          anonymous?: boolean
+          category?: string
+          created_at?: string
+          current_method?: string
+          description?: string
+          frequency?: string
+          id?: string
+          industry?: string
+          location?: string
+          owner_id?: string
+          severity?: string
+          source?: string
+          status?: string
+          title?: string
+          updated_at?: string
+          who_experiences?: string
+          why_insufficient?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "problems_owner_id_fkey"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -43,6 +182,74 @@ export type Database = {
           username?: string | null
         }
         Relationships: []
+      }
+      solutions: {
+        Row: {
+          advantages: string
+          category: string
+          cost: string
+          created_at: string
+          description: string
+          how_it_works: string
+          id: string
+          impact: string
+          kind: string
+          name: string
+          owner_id: string
+          problem_id: string
+          reference: string
+          status: string
+          target_users: string
+          technology: string
+          updated_at: string
+        }
+        Insert: {
+          advantages?: string
+          category?: string
+          cost?: string
+          created_at?: string
+          description: string
+          how_it_works?: string
+          id?: string
+          impact?: string
+          kind?: string
+          name: string
+          owner_id: string
+          problem_id?: string
+          reference?: string
+          status?: string
+          target_users?: string
+          technology?: string
+          updated_at?: string
+        }
+        Update: {
+          advantages?: string
+          category?: string
+          cost?: string
+          created_at?: string
+          description?: string
+          how_it_works?: string
+          id?: string
+          impact?: string
+          kind?: string
+          name?: string
+          owner_id?: string
+          problem_id?: string
+          reference?: string
+          status?: string
+          target_users?: string
+          technology?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "solutions_owner_id_fkey"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_roles: {
         Row: {
@@ -88,7 +295,13 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user" | "investor"
